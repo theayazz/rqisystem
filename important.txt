@@ -1,0 +1,39 @@
+//!onchange 1.find the index in .company_activity 2.find changed companyActivityCode index 3.find changed companyActivityDescription index 4.change the companyActivityDescription options
+$(document).on('change', `#companyActivityCode${l}`, function () {
+    let index = $('.company_activity').index($(this).parent().parent().parent().parent());
+    let companyActivityCodeIndex = $(this).children('option:selected').index();
+    let companyActivityDescriptionIndex = $(`#companyActivityDescription${index + 1}`)
+    .children('option:selected')
+    .index();
+    if (companyActivityCodeIndex != companyActivityDescriptionIndex) {
+    $(`#companyActivityDescription${index + 1}`)
+        .children('option')
+        .eq(companyActivityDescriptionIndex)
+        .prop('selected', false);
+    $(`#companyActivityDescription${index + 1}`)
+        .children('option')
+        .eq(companyActivityCodeIndex)
+        .prop('selected', true);
+    }
+});
+
+$(document).on('change', `#companyActivityDescription${l}`, function () {
+    let index = $('.company_activity').index($(this).parent().parent().parent().parent());
+    let companyActivityDescriptionIndex = $(this).children('option:selected').index();
+    let companyActivityCodeIndex = $(`#companyActivityCode${index + 1}`)
+    .children('option:selected')
+    .index();
+    if (companyActivityCodeIndex != companyActivityDescriptionIndex) {
+    $(`#companyActivityCode${index + 1}`)
+        .children('option')
+        .eq(companyActivityCodeIndex)
+        .prop('selected', false);
+    $(`#companyActivityCode${index + 1}`)
+        .children('option')
+        .eq(companyActivityDescriptionIndex)
+        .prop('selected', true);
+    }
+});
+
+//? AZNRBICC01478965233698520147 first 2 character must be A-Z then 4 character must be A-Z or 0-9 then 20 character must be 0-9
+   const regex = /^[A-Z]{2}[0-9]{2}[A-Z0-9]{4}[0-9]{20}$/;
